@@ -28,7 +28,7 @@ fun sqr(x: Int) = x * x
  *
  * Вычисление квадрата вещественного числа
  */
-fun sqr(x: Double) = x * x
+fun sqr(x: Double) = x * x * x
 
 /**
  * Пример
