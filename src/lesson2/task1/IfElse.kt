@@ -96,20 +96,20 @@ fun timeForHalfWay(
 {
     var answer: Double = 0.0
     var HalfS: Double = (t1 * v1 + t2 * v2 + t3 * v3) / 2
-     if (HalfS < v1 * t1) {
-         if (v1 == 0.0) {
-             return -1.0
-         }
-         else {
-             answer = (HalfS / v1)
-         }
-     }
-     else if (HalfS < (v1 * t1 + v2 * t2)) {
-         answer = (HalfS - v1 * t1 )/ v2 + t1
-     }
-     else {
-         answer = (HalfS - v1 * t1 - v2 * t2) / v3 + t1 + t2
-     }
+    if (HalfS < v1 * t1) {
+        if (v1 == 0.0) {
+            return -1.0
+        }
+        else {
+            answer = (HalfS / v1)
+        }
+    }
+    else if (HalfS < (v1 * t1 + v2 * t2)) {
+        answer = (HalfS - v1 * t1 )/ v2 + t1
+    }
+    else {
+        answer = (HalfS - v1 * t1 - v2 * t2) / v3 + t1 + t2
+    }
     return answer
 }
 
@@ -189,10 +189,7 @@ fun rookOrBishopThreatens(
  * прямоугольным (вернуть 1) или тупоугольным (вернуть 2).
  * Если такой треугольник не существует, вернуть -1.
  */
-fun triangleKind(a: Double, b: Double, c: Double): Int
-{
-
-}
+fun triangleKind(a: Double, b: Double, c: Double): Int = TODO()
 
 /**
  * Средняя (3 балла)
@@ -204,11 +201,13 @@ fun triangleKind(a: Double, b: Double, c: Double): Int
  */
 fun segmentLength(a: Int, b: Int, c: Int, d: Int): Int
 {
-    var part: Int = 0
-    if (c >= b || c >= a) {
-        return {
-            part = c - b
-        }
-
-    }
+//    var part: Int = 0
+//    if (c >= b || c >= a) {
+//        return {
+//            part = c - b
+//        }
+//
+//    }
+    return 1
 }
+
