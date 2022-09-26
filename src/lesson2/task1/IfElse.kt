@@ -72,7 +72,7 @@ fun minBiRoot(a: Double, b: Double, c: Double): Double {
  */
 fun ageDescription(age: Int): String = when
 {
-    age % 100 in 11..20 -> (age.toString() + ' ' + "лет")
+    age % 100 in 10..20 -> (age.toString() + ' ' + "лет")
     age % 10 == 1 -> (age.toString() + ' ' + "год")
     age % 10 > 4 -> (age.toString() + ' ' + "лет")
     else -> (age.toString() + ' ' + "года")
@@ -167,13 +167,15 @@ fun rookOrBishopThreatens(
     bishopX: Int, bishopY: Int
 ): Int
 {
-    if ((abs(kingX - bishopX) == abs(kingY - bishopY)) && (kingX == rookX || kingY == rookY)) {
+    var condition1 = abs(kingX - bishopX) == abs(kingY - bishopY)
+    var condition2 = kingX == rookX || kingY == rookY
+    if (condition1 && condition2) {
         return 3
     }
-    if (abs(kingX - bishopX) == abs(kingY - bishopY)) {
+    if (condition1) {
         return 2
     }
-    if (kingX == rookX || kingY == rookY) {
+    if (condition2) {
         return 1
     }
     else {
@@ -201,13 +203,12 @@ fun triangleKind(a: Double, b: Double, c: Double): Int = TODO()
  */
 fun segmentLength(a: Int, b: Int, c: Int, d: Int): Int
 {
-//    var part: Int = 0
-//    if (c >= b || c >= a) {
-//        return {
-//            part = c - b
-//        }
-//
-//    }
-    return 1
+    if (b < c || d < a) return -1
+    else if (b == c) return 0
+    else if (b > c && d >= b) return (b - max(a, c))
+    else if (b > c && d < b && a <= c) return (d - c)
+    else if (d > a && c < a) return (d - a)
+    else if (c < a) return 0
+    else return -1
 }
 
