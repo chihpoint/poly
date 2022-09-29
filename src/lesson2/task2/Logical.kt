@@ -100,6 +100,8 @@ fun circleInside(
     x2: Double, y2: Double, r2: Double
 ): Boolean = TODO()
 
+
+
 /**
  * Средняя (3 балла)
  *
