@@ -40,6 +40,8 @@ fun gradeNotation(grade: Int): String = when (grade) {
     else -> "несуществующая оценка $grade"
 }
 
+
+
 /**
  * Пример
  *
