@@ -2,6 +2,8 @@
 
 package lesson3.task1
 
+import kotlin.math.max
+import kotlin.math.min
 import kotlin.math.sqrt
 
 // Урок 3: циклы
@@ -72,7 +74,16 @@ fun digitCountInNumber(n: Int, m: Int): Int =
  *
  * Использовать операции со строками в этой задаче запрещается.
  */
-fun digitNumber(n: Int): Int = TODO()
+fun digitNumber(n: Int): Int
+{
+    var digit = n
+    var number = 0
+    do {
+        number += 1
+        digit /= 10
+    } while (digit != 0)
+    return number
+}
 
 /**
  * Простая (2 балла)
@@ -80,21 +91,51 @@ fun digitNumber(n: Int): Int = TODO()
  * Найти число Фибоначчи из ряда 1, 1, 2, 3, 5, 8, 13, 21, ... с номером n.
  * Ряд Фибоначчи определён следующим образом: fib(1) = 1, fib(2) = 1, fib(n+2) = fib(n) + fib(n+1)
  */
-fun fib(n: Int): Int = TODO()
-
+fun fib(n: Int): Int {
+    var fibCurrent: Int = 1
+    var fibPrevios = 1
+    var count = 2
+    var tmp = 0
+    while (count < n) {
+        tmp = fibCurrent
+        fibCurrent += fibPrevios
+        fibPrevios = tmp
+        count++
+    }
+    return fibCurrent
+}
 /**
  * Простая (2 балла)
  *
  * Для заданного числа n > 1 найти минимальный делитель, превышающий 1
  */
-fun minDivisor(n: Int): Int = TODO()
+fun minDivisor(n: Int): Int {
+    if (isPrime(n)) {
+        return n
+    }
+    for (i in 2..n)
+        if (n % i == 0) {
+            return i
+        }
+    return -1
+}
+
 
 /**
  * Простая (2 балла)
  *
  * Для заданного числа n > 1 найти максимальный делитель, меньший n
  */
-fun maxDivisor(n: Int): Int = TODO()
+fun maxDivisor(n: Int): Int {
+    if (isPrime(n)) {
+        return 1
+    }
+    for (i in n - 1 downTo 2)
+        if (n % i == 0) {
+            return i
+        }
+    return -1
+}
 
 /**
  * Простая (2 балла)
@@ -112,7 +153,20 @@ fun maxDivisor(n: Int): Int = TODO()
  * Написать функцию, которая находит, сколько шагов требуется для
  * этого для какого-либо начального X > 0.
  */
-fun collatzSteps(x: Int): Int = TODO()
+fun collatzSteps(x: Int): Int {
+    var step = 0
+    var next = x
+    while (next != 1) {
+        if (next % 2 == 0) {
+            next = next / 2
+            step += 1
+        } else {
+            next = 3 * next + 1
+            step += 1
+        }
+    }
+    return step
+}
 
 /**
  * Средняя (3 балла)
@@ -120,7 +174,16 @@ fun collatzSteps(x: Int): Int = TODO()
  * Для заданных чисел m и n найти наименьшее общее кратное, то есть,
  * минимальное число k, которое делится и на m и на n без остатка
  */
-fun lcm(m: Int, n: Int): Int = TODO()
+fun lcm(m: Int, n: Int): Int {
+    var i = 1
+    while (true) {
+        if ((i % m == 0) && (i % n == 0)) {
+            return i
+        }
+        i++
+    }
+    return -1
+}
 
 /**
  * Средняя (3 балла)
@@ -129,7 +192,16 @@ fun lcm(m: Int, n: Int): Int = TODO()
  * Взаимно простые числа не имеют общих делителей, кроме 1.
  * Например, 25 и 49 взаимно простые, а 6 и 8 -- нет.
  */
-fun isCoPrime(m: Int, n: Int): Boolean = TODO()
+fun isCoPrime(m: Int, n: Int): Boolean {
+    var first = 2
+    for (first in 2..min(m, n)) {
+        if ((m % first == 0) && (n % first == 0)) {
+            return false
+            first += 1
+        }
+    }
+    return true
+}
 
 /**
  * Средняя (3 балла)
@@ -138,7 +210,18 @@ fun isCoPrime(m: Int, n: Int): Boolean = TODO()
  *
  * Использовать операции со строками в этой задаче запрещается.
  */
-fun revert(n: Int): Int = TODO()
+fun revert(n: Int): Int {
+    var answer = 0
+    var tmp = 0
+    var num = n
+    while(num != 0) {
+        answer = answer * 10
+        tmp = num % 10
+        answer += tmp
+        num = num / 10
+    }
+    return answer
+}
 
 /**
  * Средняя (3 балла)
@@ -149,7 +232,20 @@ fun revert(n: Int): Int = TODO()
  *
  * Использовать операции со строками в этой задаче запрещается.
  */
-fun isPalindrome(n: Int): Boolean = TODO()
+fun isPalindrome(n: Int): Boolean {
+    var num = n
+    while(num != 0) {
+        if (num % 10 == revert(num) % 10) {
+            num = num / 10
+            num = revert(num)
+            num = num / 10
+        }
+        else {
+            return false
+        }
+    }
+    return true
+}
 
 /**
  * Средняя (3 балла)
@@ -159,7 +255,16 @@ fun isPalindrome(n: Int): Boolean = TODO()
  *
  * Использовать операции со строками в этой задаче запрещается.
  */
-fun hasDifferentDigits(n: Int): Boolean = TODO()
+fun hasDifferentDigits(n: Int): Boolean {
+    var num = n
+    while(num / 10 != 0) {
+        if (num % 10 != num / 10 % 10) {
+            return true
+        }
+        num = num / 10
+    }
+    return false
+}
 
 /**
  * Средняя (4 балла)
@@ -187,20 +292,58 @@ fun cos(x: Double, eps: Double): Double = TODO()
  * Сложная (4 балла)
  *
  * Найти n-ю цифру последовательности из квадратов целых чисел:
- * 149162536496481100121144...
+ * 1 4 9 16 25 36 49 64 81 100 121 144...
  * Например, 2-я цифра равна 4, 7-я 5, 12-я 6.
  *
  * Использовать операции со строками в этой задаче запрещается.
  */
-fun squareSequenceDigit(n: Int): Int = TODO()
+fun squareSequenceDigit(n: Int): Int {
+    var count = 1
+    var newCount = 1
+    var numOfDigits = 1
+    var prevNumDigits = 1
+    var number = 1
+    if(n == 1) return 1
+    while (numOfDigits < n) {
+        prevNumDigits = numOfDigits
+        count++
+        newCount = count * count
+        numOfDigits += digitNumber(newCount)
+    }
+    number = newCount
+    count = numOfDigits - n
+    while (count > 0) {
+        number = number / 10
+        count--
+    }
+    return number % 10
+}
+
 
 /**
  * Сложная (5 баллов)
  *
  * Найти n-ю цифру последовательности из чисел Фибоначчи (см. функцию fib выше):
- * 1123581321345589144...
+ * 1 1 2 3 5 8 13 21 34 55 89 144...
  * Например, 2-я цифра равна 1, 9-я 2, 14-я 5.
  *
  * Использовать операции со строками в этой задаче запрещается.
  */
-fun fibSequenceDigit(n: Int): Int = TODO()
+fun fibSequenceDigit(n: Int): Int {
+    var count = 1
+    var numOfDigits = 1
+    var prevNumDigits = 1
+    var number = 1
+    while (numOfDigits < n) {
+        prevNumDigits = numOfDigits
+        count++
+        numOfDigits += digitNumber(fib(count))
+    }
+    number = fib(count)
+    count = numOfDigits - n
+    while (count > 0) {
+        number = number / 10
+        count--
+    }
+    return number % 10
+}
