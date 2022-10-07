@@ -20,8 +20,7 @@ fun pointInsideCircle(x: Double, y: Double, x0: Double, y0: Double, r: Double) =
  * Четырехзначное число назовем счастливым, если сумма первых двух ее цифр равна сумме двух последних.
  * Определить, счастливое ли заданное число, вернуть true, если это так.
  */
-fun isNumberHappy(number: Int): Boolean
-{
+fun isNumberHappy(number: Int): Boolean {
     var first = number % 100
     var second = number / 100
     var sum1 = (first % 10) + (first / 10)
@@ -37,8 +36,7 @@ fun isNumberHappy(number: Int): Boolean
  * Определить, угрожают ли они друг другу. Вернуть true, если угрожают.
  * Считать, что ферзи не могут загораживать друг друга.
  */
-fun queenThreatens(x1: Int, y1: Int, x2: Int, y2: Int): Boolean
-{
+fun queenThreatens(x1: Int, y1: Int, x2: Int, y2: Int): Boolean {
     var queen1 = abs(x1 - x2) == abs(y1 - y2)
     var queen2 = x1 == x2 || y1 == y2
     if (queen1 || queen2 || ( queen1 && queen2)) return true
@@ -52,25 +50,24 @@ fun queenThreatens(x1: Int, y1: Int, x2: Int, y2: Int): Boolean
  * Дан номер месяца (от 1 до 12 включительно) и год (положительный).
  * Вернуть число дней в этом месяце этого года по григорианскому календарю.
  */
-fun daysInMonth(month: Int, year: Int): Int
-{
+fun daysInMonth(month: Int, year: Int): Int {
     // define which year is leap
-    var is_leap = false
+    var isLeap = false
     if (year % 400 == 0) {
-        is_leap = true
+        isLeap = true
     }
     else if (year % 100 == 0)
     {
-        is_leap = false
+        isLeap = false
     }
     else if (year % 4 == 0)
     {
-        is_leap = true
-    } else is_leap = false
+        isLeap = true
+    } else isLeap = false
 
     if (month == 2)
     {
-        if (is_leap)
+        if (isLeap)
         {
             return 29
         }
@@ -78,7 +75,7 @@ fun daysInMonth(month: Int, year: Int): Int
             return 28
         }
     }
-    else if (month % 2 == 1 || month == 8 || month == 10 || month == 12 && month < 8)
+    else if ((month % 2 == 1  && month < 8) || (month > 7 && month % 2 == 0))
     {
         return 31
     }
@@ -111,21 +108,19 @@ fun circleInside(
  * кирпич 4 х 4 х 4 пройдёт через отверстие 4 х 4
  * Вернуть true, если кирпич пройдёт
  */
-fun brickPasses(a: Int, b: Int, c: Int, r: Int, s: Int): Boolean
-{
-    if (a <= r && (b <= s || c <= s))
-    {
-        return true
-    }
-    else if (b <= r && ( a <= s || c <= s))
-    {
-        return true
-    }
-    else if (c <=r && (a <= s || b <= s))
-    {
-        return true
-    }
-    else {
-        return false
+fun brickPasses(a: Int, b: Int, c: Int, r: Int, s: Int): Boolean {
+    when {
+        a <= r && (b <= s || c <= s) -> {
+            return true
+        }
+        b <= r && ( a <= s || c <= s) -> {
+            return true
+        }
+        c <=r && (a <= s || b <= s) -> {
+            return true
+        }
+        else -> {
+            return false
+        }
     }
 }
