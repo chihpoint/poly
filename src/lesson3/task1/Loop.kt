@@ -79,7 +79,7 @@ fun digitNumber(n: Int): Int
     var digit = n
     var number = 0
     do {
-        number += 1
+        number ++
         digit /= 10
     } while (digit != 0)
     return number
@@ -159,10 +159,10 @@ fun collatzSteps(x: Int): Int {
     while (next != 1) {
         if (next % 2 == 0) {
             next = next / 2
-            step += 1
+            step++
         } else {
             next = 3 * next + 1
-            step += 1
+            step++
         }
     }
     return step
@@ -175,15 +175,23 @@ fun collatzSteps(x: Int): Int {
  * минимальное число k, которое делится и на m и на n без остатка
  */
 fun lcm(m: Int, n: Int): Int {
-    var i = 1
-    while (true) {
-        if ((i % m == 0) && (i % n == 0)) {
-            return i
+    var num1 = m
+    var num2 = n
+    var nod = 1
+    while (num1 != 0 && num2 != 0)
+    {
+        if (num1 > num2)
+        {
+            num1 %= num2
         }
-        i++
+        else {
+            num2 %= num1
+        }
     }
-    return -1
+    nod = num1 + num2
+    return m * n / nod
 }
+
 
 /**
  * Средняя (3 балла)
@@ -197,7 +205,7 @@ fun isCoPrime(m: Int, n: Int): Boolean {
     for (first in 2..min(m, n)) {
         if ((m % first == 0) && (n % first == 0)) {
             return false
-            first += 1
+            first++
         }
     }
     return true
@@ -233,16 +241,8 @@ fun revert(n: Int): Int {
  * Использовать операции со строками в этой задаче запрещается.
  */
 fun isPalindrome(n: Int): Boolean {
-    var num = n
-    while(num != 0) {
-        if (num % 10 == revert(num) % 10) {
-            num = num / 10
-            num = revert(num)
-            num = num / 10
-        }
-        else {
-            return false
-        }
+    if (n != revert(n)) {
+        return false
     }
     return true
 }
