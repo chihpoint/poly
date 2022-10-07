@@ -72,8 +72,7 @@ fun minBiRoot(a: Double, b: Double, c: Double): Double {
  * Мой возраст. Для заданного 0 < n < 200, рассматриваемого как возраст человека,
  * вернуть строку вида: «21 год», «32 года», «12 лет».
  */
-fun ageDescription(age: Int): String = when
-{
+fun ageDescription(age: Int): String = when {
     age % 100 in 10..20 -> (age.toString() + ' ' + "лет")
     age % 10 == 0 -> (age.toString() + ' ' + "лет")
     age % 10 == 1 -> (age.toString() + ' ' + "год")
@@ -95,8 +94,7 @@ fun timeForHalfWay(
     t1: Double, v1: Double,
     t2: Double, v2: Double,
     t3: Double, v3: Double
-): Double
-{
+): Double {
     var answer: Double = 0.0
     var HalfS: Double = (t1 * v1 + t2 * v2 + t3 * v3) / 2
     if (HalfS < v1 * t1) {
@@ -129,8 +127,7 @@ fun whichRookThreatens(
     kingX: Int, kingY: Int,
     rookX1: Int, rookY1: Int,
     rookX2: Int, rookY2: Int
-): Int
-{
+): Int {
     if (rookX1 == rookX2 && kingX == rookX1) {
         return 3
     }
@@ -168,8 +165,7 @@ fun rookOrBishopThreatens(
     kingX: Int, kingY: Int,
     rookX: Int, rookY: Int,
     bishopX: Int, bishopY: Int
-): Int
-{
+): Int {
     var condition1 = abs(kingX - bishopX) == abs(kingY - bishopY)
     var condition2 = kingX == rookX || kingY == rookY
     if (condition1 && condition2) {
@@ -204,8 +200,7 @@ fun triangleKind(a: Double, b: Double, c: Double): Int = TODO()
  * Найти длину пересечения отрезков AB и CD.
  * Если пересечения нет, вернуть -1.
  */
-fun segmentLength(a: Int, b: Int, c: Int, d: Int): Int
-{
+fun segmentLength(a: Int, b: Int, c: Int, d: Int): Int {
     if (b < c || d < a) return -1
     else if (b == c) return 0
     else if (b > c && d >= b) return (b - max(a, c))
