@@ -25,8 +25,10 @@ fun isNumberHappy(number: Int): Boolean {
     var second = number / 100
     var sum1 = (first % 10) + (first / 10)
     var sum2 = (second % 10) + (second / 10)
-    if (sum1 == sum2) return true
-    else return false
+    return when {
+        sum1 == sum2 -> true
+        else -> false
+    }
 }
 
 /**
@@ -39,8 +41,10 @@ fun isNumberHappy(number: Int): Boolean {
 fun queenThreatens(x1: Int, y1: Int, x2: Int, y2: Int): Boolean {
     var queen1 = abs(x1 - x2) == abs(y1 - y2)
     var queen2 = x1 == x2 || y1 == y2
-    if (queen1 || queen2 || ( queen1 && queen2)) return true
-    else return false
+    return when {
+        (queen1 || queen2 || (queen1 && queen2)) -> true
+        else -> false
+    }
 }
 
 
