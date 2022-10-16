@@ -178,10 +178,8 @@ fun lcm(m: Int, n: Int): Int {
     var num1 = m
     var num2 = n
     var nod = 1
-    while (num1 != 0 && num2 != 0)
-    {
-        if (num1 > num2)
-        {
+    while (num1 != 0 && num2 != 0) {
+        if (num1 > num2) {
             num1 %= num2
         }
         else {
@@ -222,11 +220,11 @@ fun revert(n: Int): Int {
     var answer = 0
     var tmp = 0
     var num = n
-    while(num != 0) {
-        answer = answer * 10
+    while (num != 0) {
+        answer *= 10
         tmp = num % 10
         answer += tmp
-        num = num / 10
+        num /= 10
     }
     return answer
 }
@@ -261,7 +259,7 @@ fun hasDifferentDigits(n: Int): Boolean {
         if (num % 10 != num / 10 % 10) {
             return true
         }
-        num = num / 10
+        num /= 10
     }
     return false
 }
@@ -313,7 +311,7 @@ fun squareSequenceDigit(n: Int): Int {
     number = newCount
     count = numOfDigits - n
     while (count > 0) {
-        number = number / 10
+        number /= 10
         count--
     }
     return number % 10
@@ -342,7 +340,7 @@ fun fibSequenceDigit(n: Int): Int {
     number = fib(count)
     count = numOfDigits - n
     while (count > 0) {
-        number = number / 10
+        number /= 10
         count--
     }
     return number % 10
