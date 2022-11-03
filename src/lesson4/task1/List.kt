@@ -123,11 +123,9 @@ fun buildSumExample(list: List<Int>) = list.joinToString(separator = " + ", post
  * по формуле abs = sqrt(a1^2 + a2^2 + ... + aN^2).
  * Модуль пустого вектора считать равным 0.0.
  */
-fun abs(v: List<Double>): Double
-{
-    var abs: Double = 0.0
-    for (i in 0..v.size - 1)
-    {
+fun abs(v: List<Double>): Double {
+    var abs = 0.0
+    for (i in 0..v.size - 1) {
         abs += v[i] * v[i]
     }
     return sqrt(abs)
@@ -140,12 +138,10 @@ fun abs(v: List<Double>): Double
  *
  * Рассчитать среднее арифметическое элементов списка list. Вернуть 0.0, если список пуст
  */
-fun mean(list: List<Double>): Double
-{
+fun mean(list: List<Double>): Double {
     var sr: Double = 0.0
-    for (i in 0.. list.size - 1)
-    {
-        sr +=  list[i] / list.size
+    for (i in 0.. list.size - 1) {
+        sr += list[i] / list.size
     }
     return sr
 }
@@ -159,8 +155,7 @@ fun mean(list: List<Double>): Double
  *
  * Обратите внимание, что данная функция должна изменять содержание списка list, а не его копии.
  */
-fun center(list: MutableList<Double>): MutableList<Double>
-{
+fun center(list: MutableList<Double>): MutableList<Double> {
     var mean = mean(list)
     for (i in 0..list.size - 1) {
         list[i] -= mean
@@ -175,8 +170,7 @@ fun center(list: MutableList<Double>): MutableList<Double>
  * представленные в виде списков a и b. Скалярное произведение считать по формуле:
  * C = a1b1 + a2b2 + ... + aNbN. Произведение пустых векторов считать равным 0.
  */
-fun times(a: List<Int>, b: List<Int>): Int
-{
+fun times(a: List<Int>, b: List<Int>): Int {
     var scalar: Int = 0
     var product = 0
     for (i in 0..a.size - 1) {
@@ -249,18 +243,13 @@ fun factorize(n: Int): List<Int> {
  * Множители в результирующей строке должны располагаться по возрастанию.
  */
 fun factorizeToString(n: Int): String {
-    var str: String = String()
-    var variable = n
-    var count = 2
-    while (variable != 1) {
-        if (variable % count == 0) {
-            variable /= count
-            str += "$count*"
-        }
-        else count++
+    var list = factorize(n)
+    var str = ""
+    for (i in list) {
+        str += "$i*"
     }
-    var strLast: String = str.substring(0, str.length - 1)
-    return strLast
+    str = str.substring(0, str.length - 1)
+    return str
 }
 
 /**
@@ -274,6 +263,10 @@ fun convert(n: Int, base: Int): List<Int> {
     var num = n
     var list: MutableList<Int> = mutableListOf<Int>()
     var variable = 0
+    if (n == 0) {
+        list.add(0)
+        return list
+    }
     while (num > 0) {
         list.add(num % base)
         num /= base
@@ -297,17 +290,19 @@ fun convert(n: Int, base: Int): List<Int> {
  * Использовать функции стандартной библиотеки, напрямую и полностью решающие данную задачу
  * (например, n.toString(base) и подобные), запрещается. (1, 2, 1, 0)
  */
+val letters = "abcdefghijklmnopqrstuvwxyz"
 fun convertToString(n: Int, base: Int): String {
-    val letterList = listOf("a", "b", "c", "d", "e", "f", "g", "h", "i",
-        "j", "k", "l", "m", "n", "o", "p", "q", "r",
-        "s", "t", "u", "v", "w", "x", "y", "z")
     val list = convert(n, base)
     var str = String()
+    if (n == 0) {
+        str = "0"
+        return str
+    }
     for (item in list) {
         str += if (item < 10) {
             item.toString()
         } else {
-            letterList[item - 10]
+            letters[item - 10]
         }
     }
     return str
@@ -343,9 +338,9 @@ fun decimalFromString(str: String, base: Int): Int = TODO()
  * 90 = XC, 100 = C, 400 = CD, 500 = D, 900 = CM, 1000 = M.
  * Например: 23 = XXIII, 44 = XLIV, 100 = C
  */
+val rim = listOf("M", "CM", "D", "CD", "C", "XC", "L", "XL", "X", "IX", "V", "IV", "I")
+val arabic = listOf(1000, 900, 500, 400, 100, 90, 50, 40, 10, 9, 5, 4, 1)
 fun roman(n: Int): String {
-    val rim = listOf("M", "CM", "D", "CD", "C", "XC", "L", "XL", "X", "IX", "V", "IV", "I")
-    val arabic = listOf(1000, 900, 500, 400, 100, 90, 50, 40, 10, 9, 5, 4, 1)
     var num = n
     var answer = ""
     for ((index, value) in arabic.withIndex()) {
