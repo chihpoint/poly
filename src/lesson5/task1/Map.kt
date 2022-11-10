@@ -2,6 +2,9 @@
 
 package lesson5.task1
 
+import kotlin.math.max
+import kotlin.math.min
+
 // Урок 5: ассоциативные массивы и множества
 // Максимальное количество баллов = 14
 // Рекомендуемое количество баллов = 9
@@ -379,6 +382,25 @@ fun hasAnagrams(words: List<String>): Boolean = TODO()
  *        )
  */
 fun propagateHandshakes(friends: Map<String, Set<String>>): Map<String, Set<String>> = TODO()
+/**{
+    var new = mutableMapOf<String, Set<String>>()
+    friends.forEach { (s, i) ->
+        friends.forEach { (k, t) ->
+            if (s != k && i != t) {
+                if (k in i) {
+                    new.put(s, i + t - s)
+                }
+                /** else {
+                    new.put(k, t)
+                } **/
+               /** else {
+                    new.put(k, t)
+                } **/
+            }
+        }
+    }
+    return new
+} **/
 
 /**
  * Сложная (6 баллов)
@@ -397,8 +419,38 @@ fun propagateHandshakes(friends: Map<String, Set<String>>): Map<String, Set<Stri
  *   findSumOfTwo(listOf(1, 2, 3), 4) -> Pair(0, 2)
  *   findSumOfTwo(listOf(1, 2, 3), 6) -> Pair(-1, -1)
  */
-fun findSumOfTwo(list: List<Int>, number: Int): Pair<Int, Int> = TODO()
+fun findSumOfTwo(list: List<Int>, number: Int): Pair<Int, Int> {
+    var answer = Pair(-1, -1)
+    for (i in list) {
+        for (j in list) {
+            if ((i + j == number) && (list.indexOf(i) != list.indexOf(j)))
+                answer = Pair(min(list.indexOf(i), list.indexOf(j)), max(list.indexOf(i), list.indexOf(j)))
+        }
+    }
+    return answer
+}
 
+/**
+ * Очень сложная (8 баллов)
+ *
+ * Входными данными является ассоциативный массив
+ * "название сокровища"-"пара (вес сокровища, цена сокровища)"
+ * и вместимость вашего рюкзака.
+ * Необходимо вернуть множество сокровищ с максимальной суммарной стоимостью,
+ * которые вы можете унести в рюкзаке.
+ *
+ * Перед решением этой задачи лучше прочитать статью Википедии "Динамическое программирование".
+ *
+ * Например:
+ *   bagPacking(
+ *     mapOf("Кубок" to (500 to 2000), "Слиток" to (1000 to 5000)),
+ *     850
+ *   ) -> setOf("Кубок")
+ *   bagPacking(
+ *     mapOf("Кубок" to (500 to 2000), "Слиток" to (1000 to 5000)),
+ *     450
+ *   ) -> emptySet()
+ */
 /**
  * Очень сложная (8 баллов)
  *
