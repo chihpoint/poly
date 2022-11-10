@@ -382,25 +382,6 @@ fun hasAnagrams(words: List<String>): Boolean = TODO()
  *        )
  */
 fun propagateHandshakes(friends: Map<String, Set<String>>): Map<String, Set<String>> = TODO()
-/**{
-    var new = mutableMapOf<String, Set<String>>()
-    friends.forEach { (s, i) ->
-        friends.forEach { (k, t) ->
-            if (s != k && i != t) {
-                if (k in i) {
-                    new.put(s, i + t - s)
-                }
-                /** else {
-                    new.put(k, t)
-                } **/
-               /** else {
-                    new.put(k, t)
-                } **/
-            }
-        }
-    }
-    return new
-} **/
 
 /**
  * Сложная (6 баллов)
