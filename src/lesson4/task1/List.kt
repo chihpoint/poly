@@ -139,7 +139,7 @@ fun abs(v: List<Double>): Double {
  * Рассчитать среднее арифметическое элементов списка list. Вернуть 0.0, если список пуст
  */
 fun mean(list: List<Double>): Double {
-    var sr: Double = 0.0
+    var sr = 0.0
     for (i in 0.. list.size - 1) {
         sr += list[i] / list.size
     }
@@ -242,15 +242,7 @@ fun factorize(n: Int): List<Int> {
  * Результат разложения вернуть в виде строки, например 75 -> 3*5*5
  * Множители в результирующей строке должны располагаться по возрастанию.
  */
-fun factorizeToString(n: Int): String {
-    var list = factorize(n)
-    var str = ""
-    for (i in list) {
-        str += "$i*"
-    }
-    str = str.substring(0, str.length - 1)
-    return str
-}
+fun factorizeToString(n: Int): String = factorize(n).joinToString(separator = "*")
 
 /**
  * Средняя (3 балла)
@@ -293,10 +285,9 @@ fun convert(n: Int, base: Int): List<Int> {
 val letters = "abcdefghijklmnopqrstuvwxyz"
 fun convertToString(n: Int, base: Int): String {
     val list = convert(n, base)
-    var str = String()
+    var str = ""
     if (n == 0) {
-        str = "0"
-        return str
+        return "0"
     }
     for (item in list) {
         str += if (item < 10) {
@@ -338,14 +329,14 @@ fun decimalFromString(str: String, base: Int): Int = TODO()
  * 90 = XC, 100 = C, 400 = CD, 500 = D, 900 = CM, 1000 = M.
  * Например: 23 = XXIII, 44 = XLIV, 100 = C
  */
-val rim = listOf("M", "CM", "D", "CD", "C", "XC", "L", "XL", "X", "IX", "V", "IV", "I")
+val roman = listOf("M", "CM", "D", "CD", "C", "XC", "L", "XL", "X", "IX", "V", "IV", "I")
 val arabic = listOf(1000, 900, 500, 400, 100, 90, 50, 40, 10, 9, 5, 4, 1)
 fun roman(n: Int): String {
     var num = n
     var answer = ""
     for ((index, value) in arabic.withIndex()) {
         if (num % value != num) {
-            answer += rim[index].repeat(num / value)
+            answer += roman[index].repeat(num / value)
             num %= value
         }
     }
