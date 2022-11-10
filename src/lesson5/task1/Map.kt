@@ -162,20 +162,11 @@ fun subtractOf(a: MutableMap<String, String>, b: Map<String, String>) {
  * т. е. whoAreInBoth(listOf("Марат", "Семён, "Марат"), listOf("Марат", "Марат")) == listOf("Марат")
  */
 fun whoAreInBoth(a: List<String>, b: List<String>): List<String> {
-    var new = mutableListOf<String>()
-    for (it in a) {
-        for (them in b) {
-            if (new.contains(it)) {
-                break
-            }
-            if (it == them) {
-                new.add(it)
-                break
-            }
-        }
-    }
-    return new
+    var new = mutableSetOf<String>()
+    a.forEach { if (it in b) new.add(it) }
+    return new.toList()
 }
+
 
 /**
  * Средняя (3 балла)
