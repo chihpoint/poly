@@ -2,6 +2,7 @@
 
 package lesson5.task1
 
+import java.util.*
 import kotlin.math.max
 import kotlin.math.min
 
@@ -274,8 +275,9 @@ fun findCheapestStuff(stuff: Map<String, Pair<String, Double>>, kind: String): S
  */
 fun canBuildFrom(chars: List<Char>, word: String): Boolean {
     var count = 0
+    val chars2 = chars.toSet()
     for (i in word) {
-        for (it in chars) {
+        for (it in chars2) {
             if (i == it) {
                 count++
             }
