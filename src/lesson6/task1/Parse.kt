@@ -2,6 +2,8 @@
 
 package lesson6.task1
 
+import lesson2.task2.daysInMonth
+
 // Урок 6: разбор строк, исключения
 // Максимальное количество баллов = 13
 // Рекомендуемое количество баллов = 11
@@ -74,7 +76,18 @@ fun main() {
  * Обратите внимание: некорректная с точки зрения календаря дата (например, 30.02.2009) считается неверными
  * входными данными.
  */
-fun dateStrToDigit(str: String): String = TODO()
+val months = listOf("января", "февраля", "марта", "апреля", "мая", "июня",
+    "июля", "августа", "сентрябя", "октября", "ноября", "декабря")
+fun dateStrToDigit(str: String): String {
+    val new = str.split(" ")
+    if (new.size == 3 && new[1] in months) {
+        val day = new[0].toInt()
+        val month = months.indexOf(new[1]) + 1
+        val year = new[2].toInt()
+        if (day > daysInMonth(month, year)) return ""
+        return String.format("%02d.%02d.%02d", day, month, year)
+    } else return ""
+}
 
 /**
  * Средняя (4 балла)
@@ -86,7 +99,19 @@ fun dateStrToDigit(str: String): String = TODO()
  * Обратите внимание: некорректная с точки зрения календаря дата (например, 30 февраля 2009) считается неверными
  * входными данными.
  */
-fun dateDigitToStr(digital: String): String = TODO()
+fun dateDigitToStr(digital: String): String {
+    val months = listOf("января", "февраля", "марта", "апреля", "мая", "июня",
+        "июля", "августа", "сентрябя", "октября", "ноября", "декабря")
+    val space = digital.split(".")
+    if (!digital.matches(Regex("""\d\d\.\d\d\.\d\d\d\d"""))) return ""
+    val day = space[0].toInt()
+    val month = space[1].toInt()
+    if (month < 1) return ""
+    val monthName = months[month - 1]
+    val year = space[2].toInt()
+    if (day > daysInMonth(month, year)) return ""
+    return String.format("%d %s %d", day, monthName, year)
+}
 
 /**
  * Средняя (4 балла)
@@ -103,7 +128,10 @@ fun dateDigitToStr(digital: String): String = TODO()
  * PS: Дополнительные примеры работы функции можно посмотреть в соответствующих тестах.
  */
 fun flattenPhoneNumber(phone: String): String = TODO()
-
+/**{
+    val space = phone.split("-")
+    if(phone.matches(Regex("""(\+\d+)?\s*()"""))
+} **/
 /**
  * Средняя (5 баллов)
  *
