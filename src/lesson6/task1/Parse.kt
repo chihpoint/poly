@@ -103,7 +103,7 @@ fun dateDigitToStr(digital: String): String {
     val months = listOf("января", "февраля", "марта", "апреля", "мая", "июня",
         "июля", "августа", "сентрябя", "октября", "ноября", "декабря")
     val space = digital.split(".")
-    if (!digital.matches(Regex("""\d\d\.\d\d\.\d\d\d\d"""))) return ""
+    if (!digital.matches(Regex("""\d\d\.\d\d\.\d+"""))) return ""
     val day = space[0].toInt()
     val month = space[1].toInt()
     if (month < 1) return ""
