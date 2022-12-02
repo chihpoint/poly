@@ -129,10 +129,9 @@ fun dateDigitToStr(digital: String): String {
  * PS: Дополнительные примеры работы функции можно посмотреть в соответствующих тестах.
  */
 fun flattenPhoneNumber(phone: String): String = TODO()
-//{
 //    val space = phone.split("")
 //    val rubbish = setOf(" ", "-", "(", ")")
-//    if (phone.matches(Regex("""\+ ?\(\d\)?[\s\d\-]*?[\s\d\-]*? *"""))) {
+//    if (phone.matches(Regex("""\+? \s* (\(\d+\))? \s* [\d\-\s]+"""))) {
 //    return space.filter { it !in rubbish }.joinToString(separator = "")
 //    }
 //    return ""
@@ -199,20 +198,18 @@ fun bestHighJump(jumps: String): Int = TODO()
  * Вернуть значение выражения (6 для примера).
  * Про нарушении формата входной строки бросить исключение IllegalArgumentException
  */
-fun plusMinus(expression: String): Int = TODO()
-//    try {
-//        if (expression.matches(Regex("""[\d+\s[+-]\s*]+}"""))) {
-//            val space = expression.split(" ").toString()
-//            if (space.matches(Regex("""[\d+[+-]]+"""))) {
-//                return space.toInt()
-//            }
-//        }
-//    }
-//    catch (e: IllegalArgumentException) {
-//        return -1
-//    }
-//    return 0
-//}
+fun plusMinus(expression: String): Int {
+    if (expression.matches(Regex("""\d+( [+-]{1} \d+)*"""))) {
+        val space = expression.split(" ")
+        var answer = space[0].toInt()
+        for (i in 1..space.size - 1 step 2) {
+            if (space[i] == "+") answer += space[i + 1].toInt()
+            else answer -= space[i + 1].toInt()
+        }
+        return answer
+    }
+    throw IllegalArgumentException()
+}
 
 /**
  * Сложная (6 баллов)
@@ -232,7 +229,16 @@ fun plusMinus(expression: String): Int = TODO()
  * Вернуть индекс начала первого повторяющегося слова, или -1, если повторов нет.
  * Пример: "Он пошёл в в школу" => результат 9 (индекс первого 'в')
  */
-fun firstDuplicateIndex(str: String): Int = TODO()
+fun firstDuplicateIndex(str: String): Int {
+    var ind = 0
+    val space = str.lowercase().split(" ").toList()
+    for (i in 0..space.size - 2) {
+        if (space[i] != space[i + 1]) {
+            ind += space[i].length + 1
+        } else return ind
+    }
+    return -1
+}
 
 /**
  * Сложная (6 баллов)
@@ -256,7 +262,20 @@ fun firstDuplicateIndex(str: String): Int = TODO()
  * или пустую строку при нарушении формата строки.
  * Все цены должны быть больше нуля либо равны нулю.
  */
-fun mostExpensive(description: String): String = TODO()
+fun mostExpensive(description: String): String {
+    var cost = 0.0
+    var answer = ""
+    if (!description.matches(Regex("""([А-я]+ [\d.]+; )*[А-я]+ [\d.]+"""))) return ""
+    val pork = description.split("; ")
+    for (i in pork) {
+        val (name, price) = i.split(" ")
+        if (price.toDouble() >= cost) {
+            answer = name
+            cost = price.toDouble()
+        }
+    }
+    return answer
+}
 
 /**
  * Сложная (6 баллов)
@@ -355,3 +374,90 @@ fun fromRoman(roman: String): Int = TODO()
  *
  */
 fun computeDeviceCells(cells: Int, commands: String, limit: Int): List<Int> = TODO()
+
+
+
+//Вбербанк - банковские операции - 10000
+//fun myFun(table: Map<String, Int>, taxes: String): Collection<Any> {
+//    val answer = mutableMapOf<String, Int>()
+//    for (i in taxes.split("\n")) {
+//        if (!taxes.matches(Regex("""[А-я ]+ - [А-я ]+ - \d"""))) throw IllegalArgumentException()
+//        val (name, type, profit) = taxes.split(Regex(""" - """))
+//        table.forEach { (s, i) ->
+//            if (type == s) {
+//                answer[name] = (profit.toInt() * i) / 100
+//            } else {
+//                answer[name] = (profit.toInt() * 13) / 100
+//            }
+//        }
+//    }
+//    return answer.entries.sortedByDescending { it.value }.map { it.value }
+//}
+
+
+
+fun newMyFun(phones: List<String>, prefix: String): Any {
+    val answer = mutableListOf<String>()
+    for (it in phones) {
+        if (!it.matches(Regex("""\d+ ([А-я])+"""))) throw IllegalArgumentException("")
+        val (number, name) = it.split(Regex(""" """))
+        val first = number[0].toString()
+        val second = number[1].toString()
+        if ((first + second) == prefix) {
+            answer.add(name)
+        }
+    }
+    return answer
+}
+
+val guests = listOf("один", "два", "три", "четыре", "пять", "шесть", "семь", "восемь", "девять", "десять")
+fun marry(marks: List<String>, cost: Int): Int {
+    var answer = 0
+    var result = 0
+    for (it in marks) {
+        if (!it.matches(Regex("""[А-я]+\+[А-я]+"""))) throw IllegalArgumentException("")
+        val (name, number) = it.split("""+""")
+        if (number in guests) {
+            answer = (cost * (guests.indexOf(number) + 2))
+            result += answer
+        } else {
+            throw IllegalArgumentException("")
+        }
+    }
+    return result
+}
+
+//fun phone(names: List<String>, digits: String): Any {
+//    var answer = listOf<String>()
+//    if (digits.matches(Regex("""[2-9]+"""))) {
+//        for (it in names) {
+//            if (it.matches(Regex("""[A-z]+"""))) {
+//                answer += it
+//            }
+//        }
+//    }
+//    return answer
+//}
+
+//20000 у.е - 0%; 40000 у.е - 5%; else - 25%
+//fun nalog(taxes: String, money: Int): Int {
+//    var answer = 0
+//    var sum = 0
+//    var mew = 0
+//    val trash = "%"
+//    if (taxes.matches(Regex("""(\d+ у.е - \d+%; )+else - \d+%"""))) {
+//        for (i in taxes.split("; ")) {
+//            val (number, percent) = i.split(Regex(""" у.е - """))
+//            mew = percent.filter { it in trash }!!.toInt()
+//            while (sum < money) {
+//                answer += (number.toInt() - sum) * mew / 100
+//                sum += 20000
+//            }
+//        }
+//    } else {
+//        throw IllegalArgumentException()
+//    }
+//    return answer
+//}
+
+
